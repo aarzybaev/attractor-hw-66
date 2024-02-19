@@ -5,8 +5,9 @@ import TotalCalories from '../../components/TotalCalories/TotalCalories';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import ButtonSpinner from '../../components/ButtonSpinner/ButtonSpinner';
+
 const Meals: React.FC = () => {
-  const [meals, setMeals] = useState<Meal[]>([])
+  const [meals, setMeals] = useState<Meal[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [id, setId] = useState('');
@@ -14,7 +15,7 @@ const Meals: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const fetchMeals = useCallback(async() => {
+  const fetchMeals = useCallback(async () => {
     if (location.pathname === '/') {
       try {
         setIsLoading(true);
@@ -23,9 +24,9 @@ const Meals: React.FC = () => {
           setMeals(Object.keys(meals).map(id => ({
             ...meals[id],
             id
-          })))
+          })));
         } else {
-          setMeals([])
+          setMeals([]);
         }
       } catch (e) {
         console.log(e);
@@ -34,7 +35,7 @@ const Meals: React.FC = () => {
       }
     }
 
-  }, [  location]);
+  }, [location]);
 
   useEffect(() => {
     void fetchMeals();
@@ -57,7 +58,7 @@ const Meals: React.FC = () => {
 
   let mealsArea = <Spinner/>;
   if (!isLoading) {
-    mealsArea =  (
+    mealsArea = (
       <div className="col-8 m-auto mt-3">
         <TotalCalories meals={meals}/>
         {meals.map(meal => {
