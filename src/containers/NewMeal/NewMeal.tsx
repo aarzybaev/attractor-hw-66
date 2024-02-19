@@ -6,7 +6,7 @@ import axiosAPI from '../../axiosAPI';
 import ButtonSpinner from '../../components/ButtonSpinner/ButtonSpinner';
 import Spinner from '../../components/Spinner/Spinner';
 
-interface  Props {
+interface Props {
   isEdit?: boolean;
 }
 
@@ -29,7 +29,7 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
 
 
   const navigate = useNavigate();
-  const toCreateMeal = async (meal:ApiMeal) => {
+  const toCreateMeal = async (meal: ApiMeal) => {
     try {
       setIsCreating(true);
       await axiosAPI.post<ApiMeal | null>('/meals.json', meal);
@@ -66,7 +66,7 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
       setIsLoading(false);
     }
 
-  },[]);
+  }, []);
 
   useEffect(() => {
     void fetchMeal();
@@ -75,22 +75,22 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
   if (id) {
     isEdit = true;
   }
-  const changeMeal = (e: React.ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
+  const changeMeal = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 
     setMeal(prevState => (
       {
         ...prevState,
         [e.target.name]: e.target.value
       }
-    ))
+    ));
   };
-  const onFormSubmit = async (e:React.FormEvent) => {
+  const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isEdit && id) {
-      await toEditeMeal(id, {...meal, calorie:Number(meal.calorie)});
+      await toEditeMeal(id, {...meal, calorie: Number(meal.calorie)});
       navigate('/');
     } else {
-      await toCreateMeal({...meal, calorie:Number(meal.calorie)});
+      await toCreateMeal({...meal, calorie: Number(meal.calorie)});
       navigate('/');
     }
 
@@ -108,7 +108,7 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
   let content = <Spinner/>;
 
   if (!isLoading) {
-    content  = (
+    content = (
       <div className="row">
         <form className="col-5 m-auto mt-3" onSubmit={onFormSubmit}>
           <h4>{isEdit ? 'Edit meal' : 'Add new meal'}</h4>
