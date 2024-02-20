@@ -89,7 +89,7 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
     e.preventDefault();
     if (isEdit && id) {
       await toEditeMeal(id, {...meal, calorie: Number(meal.calorie)});
-      navigate('/');
+      
     } else {
       await toCreateMeal({...meal, calorie: Number(meal.calorie)});
       navigate('/');
