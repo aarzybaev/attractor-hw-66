@@ -5,6 +5,8 @@ import {MEAL_TIME} from '../../constants';
 import axiosAPI from '../../axiosAPI';
 import ButtonSpinner from '../../components/ButtonSpinner/ButtonSpinner';
 import Spinner from '../../components/Spinner/Spinner';
+import {format} from 'date-fns';
+
 
 interface Props {
   isEdit?: boolean;
@@ -22,7 +24,7 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
     calorie: '',
     description: '',
     mealTime: 'Breakfast',
-    createdAt: ''
+    createdAt: format(new Date(), 'yyyy-MM-dd')
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -104,14 +106,7 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
       }
       return <option key={Math.random()} value={item}>{item}</option>;
     }
-  );
-
-  const getCurrDate = () => {
-    const today = new Date();    
-    const date = today.setDate(today.getDate()); 
-    const defaultValue = new Date(date).toISOString().split('T')[0];
-    return defaultValue;
-  };
+  ); 
 
   let content = <Spinner/>;
 
@@ -161,7 +156,7 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
               name="createdAt"
               id="createdAt"
               className="form-control"              
-              value={meal.createdAt ? meal.createdAt : getCurrDate()}
+              value={meal.createdAt}
               onChange={changeMeal}
               required
             />
