@@ -69,7 +69,7 @@ const Meals: React.FC = () => {
             <div key={Math.random()} className="card mt-1">
               <div className="card-body">
                 <div className="card-header">{format(new Date(meal.createdAt), 'dd/MM/yyyy')}</div>
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center mt-1">
                   <div>
                     <h5 className="card-title text-secondary">{meal.mealTime}</h5>
                     <p className="card-text">{meal.description}</p>
