@@ -14,13 +14,15 @@ interface Meal {
   calorie: string;
   description: string;
   mealTime: string;
+  createdAt: string;
 }
 
 const NewMeal: React.FC<Props> = ({isEdit = false}) => {
   const [meal, setMeal] = useState<Meal>({
     calorie: '',
     description: '',
-    mealTime: 'Breakfast'
+    mealTime: 'Breakfast',
+    createdAt: ''
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +78,6 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
     isEdit = true;
   }
   const changeMeal = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-
     setMeal(prevState => (
       {
         ...prevState,
@@ -104,6 +105,13 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
       return <option key={Math.random()} value={item}>{item}</option>;
     }
   );
+
+  const getCurrDate = () => {
+    const today = new Date();    
+    const date = today.setDate(today.getDate()); 
+    const defaultValue = new Date(date).toISOString().split('T')[0];
+    return defaultValue;
+  };
 
   let content = <Spinner/>;
 
@@ -144,6 +152,17 @@ const NewMeal: React.FC<Props> = ({isEdit = false}) => {
               value={meal.calorie ? meal.calorie : ''}
               onChange={changeMeal}
               placeholder="Calories"
+              required
+            />
+          </div>
+          <div className="form-group mt-2">
+            <input
+              type="date"
+              name="createdAt"
+              id="createdAt"
+              className="form-control"              
+              value={meal.createdAt ? meal.createdAt : getCurrDate()}
+              onChange={changeMeal}
               required
             />
           </div>

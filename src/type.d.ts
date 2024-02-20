@@ -2,6 +2,7 @@ export interface ApiMeal {
   calorie: number;
   description: string;
   mealTime: string;
+  createdAt: string;
 }
 
 export interface Meal extends ApiMeal {

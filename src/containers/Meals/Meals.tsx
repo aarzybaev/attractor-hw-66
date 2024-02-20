@@ -5,6 +5,7 @@ import TotalCalories from '../../components/TotalCalories/TotalCalories';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import ButtonSpinner from '../../components/ButtonSpinner/ButtonSpinner';
+import {format} from 'date-fns';
 
 const Meals: React.FC = () => {
   const [meals, setMeals] = useState<Meal[]>([]);
@@ -61,10 +62,13 @@ const Meals: React.FC = () => {
     mealsArea = (
       <div className="col-8 m-auto mt-3">
         <TotalCalories meals={meals}/>
-        {meals.map(meal => {
+        {meals
+        .sort((a, b) => (new Date(a.createdAt).valueOf() < new Date(b.createdAt).valueOf()) ? 1 : -1)
+        .map(meal => {
           return (
             <div key={Math.random()} className="card mt-1">
               <div className="card-body">
+                <div className="card-header">{format(new Date(meal.createdAt), 'dd/MM/yyyy')}</div>
                 <div className="d-flex align-items-center">
                   <div>
                     <h5 className="card-title text-secondary">{meal.mealTime}</h5>
